@@ -59,6 +59,7 @@ from ramses_rf.const import (
     SZ_SUPPLY_FLOW,
     SZ_SUPPLY_TEMP,
     SZ_TEMPERATURE,
+    SZ_VENT_DEMAND,
 )
 from ramses_rf.device.heat import (
     DhwSensor,
@@ -226,6 +227,17 @@ class RamsesSensor(RamsesEntity, SensorEntity):
         cast(Any, self._device).indoor_humidity = (
             indoor_humidity / 100
         )  # would accept None
+
+    async def async_put_ventilation_demand(self, ventilation_demand: float) -> None:
+        """Send a ventilation demand to the fan (via a bound remote).
+
+        :param ventilation_demand: The ventilation demand as a percentage (0-100).
+        :raises TypeError: If the device is not a compatible ventilator.
+        """
+        if not isinstance(self._device, HvacVentilator):
+            raise TypeError(f"Cannot set ventilation demand on {self._device}")
+
+        await self._device.put_ventilation_demand(ventilation_demand / 100)
 
     @callback
     def async_put_room_temp(self, temperature: float) -> None:
@@ -566,6 +578,7 @@ SENSOR_DESCRIPTIONS: tuple[RamsesSensorEntityDescription, ...] = (
         ramses_rf_attr=SZ_SUPPLY_FAN_SPEED,
         name="Supply fan speed",
         native_unit_of_measurement=PERCENTAGE,
+        entity_category=None,
     ),
     RamsesSensorEntityDescription(
         key=SZ_SUPPLY_FLOW,
@@ -589,6 +602,14 @@ SENSOR_DESCRIPTIONS: tuple[RamsesSensorEntityDescription, ...] = (
         name="Temperature",  # ClimaRad fans 12A0 field
         device_class=SensorDeviceClass.TEMPERATURE,
         native_unit_of_measurement=UnitOfTemperature.CELSIUS,
+        entity_category=None,
+    ),
+    RamsesSensorEntityDescription(
+        key=SZ_VENT_DEMAND,
+        ramses_rf_attr=SZ_VENT_DEMAND,
+        ramses_rf_class=HvacVentilator,
+        name="Ventilation demand",
+        native_unit_of_measurement=PERCENTAGE,
         entity_category=None,
     ),
     # Special projects

@@ -71,6 +71,7 @@ from .const import (
     ATTR_TEMPERATURE,
     ATTR_TIMEOUT,
     ATTR_UNTIL,
+    ATTR_VENTILATION_DEMAND,
     CONF_ADVANCED_FEATURES,
     CONF_COMMANDS,
     CONF_DEV_MODE,
@@ -351,11 +352,26 @@ SCH_PUT_ROOM_TEMP = cv.make_entity_service_schema(
     extra=vol.PREVENT_EXTRA,
 )
 
+MIN_VENTILATION_DEMAND: Final[float] = 0
+MAX_VENTILATION_DEMAND: Final[float] = 100
+
+SVC_PUT_VENTILATION_DEMAND: Final = "put_ventilation_demand"
+SCH_PUT_VENTILATION_DEMAND = cv.make_entity_service_schema(
+    {
+        vol.Required(ATTR_VENTILATION_DEMAND): vol.All(
+            vol.Coerce(float),
+            vol.Range(min=MIN_VENTILATION_DEMAND, max=MAX_VENTILATION_DEMAND),
+        ),
+    },
+    extra=vol.PREVENT_EXTRA,
+)
+
 SVCS_RAMSES_SENSOR = {
     SVC_PUT_CO2_LEVEL: SCH_PUT_CO2_LEVEL,
     SVC_PUT_DHW_TEMP: SCH_PUT_DHW_TEMP,
     SVC_PUT_INDOOR_HUMIDITY: SCH_PUT_INDOOR_HUMIDITY,
     SVC_PUT_ROOM_TEMP: SCH_PUT_ROOM_TEMP,
+    SVC_PUT_VENTILATION_DEMAND: SCH_PUT_VENTILATION_DEMAND,
 }
 
 # services for climate platform
