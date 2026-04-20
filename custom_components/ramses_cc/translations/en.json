@@ -628,6 +628,17 @@
             }
         },
 
+        "put_ventilation_demand": {
+            "name": "Send a ventilation demand",
+            "description": "Send a ventilation demand percentage to a fan via a bound remote (experimental). The fan must have a bound REM or HGI device configured.",
+            "fields": {
+                "ventilation_demand": {
+                    "name": "Ventilation demand",
+                    "description": "The desired ventilation level as a percentage (0–100%)."
+                }
+            }
+        },
+
         "delete_command": {
             "name": "Delete a Remote command",
             "description": "Delete a RAMSES command from the database. This is a convenience wrapper for HA's own `delete_command` service call.",

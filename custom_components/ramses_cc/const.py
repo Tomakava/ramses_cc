@@ -91,6 +91,7 @@ ATTR_SYSTEM_MODE: Final = "system_mode"
 ATTR_TEMPERATURE: Final = "temperature"
 ATTR_TIMEOUT: Final = "timeout"
 ATTR_UNTIL: Final = "until"
+ATTR_VENTILATION_DEMAND: Final = "ventilation_demand"
 ATTR_WINDOW: Final = "window_open"
 ATTR_WORKING_SCHEMA: Final = "working_schema"
 

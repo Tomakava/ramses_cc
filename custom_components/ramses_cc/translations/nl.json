@@ -628,6 +628,17 @@
             }
         },
 
+        "put_ventilation_demand": {
+            "name": "Stuur ventilatievraag",
+            "description": "Stuur een ventilatievraag (in %) naar een ventilatie-eenheid via een gekoppelde afstandsbediening (experimenteel). De ventilator moet een gekoppelde REM of HGI hebben geconfigureerd.",
+            "fields": {
+                "ventilation_demand": {
+                    "name": "Ventilatievraag",
+                    "description": "Gewenst ventilatieniveau als percentage (0–100%)."
+                }
+            }
+        },
+
         "delete_command": {
             "name": "Wis commando van Afstandsbediening",
             "description": "Verwijdert een RAMSES commando uit de database. Dit is en makkelijke actie voor HA's eigen `delete_command` actie.",

@@ -676,6 +676,27 @@ put_indoor_humidity:
           mode: slider
 
 
+put_ventilation_demand:
+  # Send a ventilation demand percentage to a fan via a bound remote
+
+  target:
+    entity:
+      - integration: ramses_cc
+        domain: sensor
+
+  fields:
+    ventilation_demand:
+      required: true
+      example: 75.0
+      selector:
+        number:
+          unit_of_measurement: '%'
+          min: 0
+          max: 100
+          step: 1
+          mode: slider
+
+
 #
 # faked remote service calls. Target is usually a HVAC device.
 
